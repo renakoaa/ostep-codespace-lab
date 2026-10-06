@@ -18,7 +18,9 @@ total time:10
 CPU utilization:100%
 - Reasoning / 理由:两个进程都只用cpu时，cpu不会空闲。
 - Verified result / 验证结果:
-- Analysis / 分析:
+Stats: Total Time 10
+Stats: CPU Busy 10 (100.00%)
+- Analysis / 分析:结果与预测完全一致。两个进程都只用cpu时，cpu不会空闲。
 ## Q2
 - Prediction / 预测:the state table is below.
 ```
@@ -39,7 +41,9 @@ total time:11
 CPU utilization:6/11
 - Reasoning / 理由:pid0结束前pid1在等待。一次IO需要7个tick
 - Verified result / 验证结果:
-- Analysis / 分析:
+Stats: Total Time 11
+Stats: CPU Busy 6 (54.55%)
+- Analysis / 分析:结果与预测完全一致。pid0结束前pid1在等待。一次IO需要7个tick。
 ## Q3
 - Prediction / 预测:the state table is below.
 ```
@@ -56,7 +60,9 @@ total time:7
 CPU utilization:6/7
 - Reasoning / 理由:IO阻塞时cpu在运行其他进程
 - Verified result / 验证结果:
-- Analysis / 分析:
+Stats: Total Time 7
+Stats: CPU Busy 6 (85.71%)
+- Analysis / 分析:结果与预测完全一致。IO阻塞时cpu在运行其他进程
 ## Q4
 - Prediction / 预测:the state table is below.
 ```
@@ -77,7 +83,9 @@ total time:11
 CPU utilization:6/11
 - Reasoning / 理由:如果等待时不切换，CPU会等待IO结束后再运行其他进程
 - Verified result / 验证结果:
-- Analysis / 分析:
+Stats: Total Time 11
+Stats: CPU Busy 6 (54.55%)
+- Analysis / 分析:结果与预测完全一致。如果等待时不切换，CPU会等待IO结束后再运行其他进程。
 ## Q5
 - Prediction / 预测:the state table is below.
 ```
@@ -94,7 +102,9 @@ total time:7
 CPU utilization:6/7
 - Reasoning / 理由:等待时切换，因此IO传输时CPU会处理其他进程，时间缩短
 - Verified result / 验证结果:
-- Analysis / 分析:
+Stats: Total Time 7
+Stats: CPU Busy 6 (85.71%)
+- Analysis / 分析:结果与预测完全一致。等待时切换，因此IO传输时CPU会处理其他进程，时间缩短。
 ## Q6
 - Prediction / 预测:the state table is below.
 ```
@@ -135,7 +145,9 @@ total time:31
 CPU utilization:21/31
 - Reasoning / 理由:IO传输结束后始终处于READY状态，等待其他进程结束CPU空闲时继续。
 - Verified result / 验证结果:
-- Analysis / 分析:
+Stats: Total Time 31
+Stats: CPU Busy 21 (67.74%)
+- Analysis / 分析:结果与预测完全一致。IO传输结束后始终处于READY状态，等待其他进程结束CPU空闲时继续。
 ## Q7
 - Prediction / 预测:the state table is below.
 ```
@@ -166,7 +178,9 @@ total time:21
 CPU utilization:100%
 - Reasoning / 理由:IO传输完立刻抢回CPU，减少IO进程的等待时间，提升传输速度。
 - Verified result / 验证结果:
-- Analysis / 分析:
+Stats: Total Time 21
+Stats: CPU Busy 21 (100.00%)
+- Analysis / 分析:结果与预测完全一致。IO传输完立刻抢回CPU，减少IO进程的等待时间，提升传输速度。
 ## Q8
 - Prediction / 预测:the state table is below.(s1)
 ```
@@ -238,4 +252,13 @@ total time:18
 CPU utilization:50%
 - Reasoning / 理由:根据控制台实际输出的IO和CPU指令顺序进行了预测。
 - Verified result / 验证结果:
-- Analysis / 分析:
+s1:
+Stats: Total Time 15
+Stats: CPU Busy 8 (53.33%)
+s2:
+Stats: Total Time 16
+Stats: CPU Busy 10 (62.50%)
+s3:
+Stats: Total Time 18
+Stats: CPU Busy 9 (50.00%)
+- Analysis / 分析:default设置下结果与预测完全一致。IO_RUN_IMMEDIATE的情况没有考虑到。
